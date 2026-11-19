@@ -1,0 +1,14 @@
+CAMBIO DE UNA SOLA LÍNEA (entre la corrida 1 y la corrida 2)
+
+Archivo: experimento/revisor.md
+Línea: la última del cuerpo del revisor (regla de salida vacía).
+
+ANTES:
+Si no hay hallazgos relevantes de seguridad o robustez, respondé únicamente: "Sin hallazgos relevantes de seguridad o robustez".
+
+DESPUÉS:
+Si no hay un fallo concreto y verificable en el código revisado —no una responsabilidad delegada, una variable de entorno controlada por quien despliega ni una mejora general de escalabilidad— respondé únicamente: "Sin hallazgos relevantes de seguridad o robustez".
+
+POR QUÉ (dos líneas):
+En la corrida 1 el revisor llenó los dos archivos sanos de hallazgos al tratar como fallos propios la autorización delegada al backend, las variables de entorno del despliegue y la falta de paginación.
+La regla de silencio era demasiado débil: ahora pide un fallo concreto y verificable y excluye explícitamente esos tres casos.

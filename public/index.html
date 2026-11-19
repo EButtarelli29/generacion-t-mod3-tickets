@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mesa de ayuda: tickets de soporte, estados, asignaciones y sugerencias de respuesta.">
+  <meta name="color-scheme" content="light">
+  <title>Mesa de ayuda · Tickets</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-copy">
+      <p class="eyebrow">Generación T · Módulo 3</p>
+      <h1>Mesa de ayuda</h1>
+      <p class="subtitle">Tickets, estados, asignaciones y sugerencias de respuesta en un solo lugar.</p>
+    </div>
+    <button id="new-ticket" class="btn btn-primary" type="button">+ Nuevo ticket</button>
+  </header>
+
+  <div class="toolbar" role="toolbar">
+    <div class="search-wrapper">
+      <input id="search" type="search" placeholder="Buscar ticket…" aria-label="Buscar ticket">
+    </div>
+    <div class="filter-controls">
+      <label class="field">
+        <span>Prioridad</span>
+        <select id="priority-filter" name="priority">
+          <option value="">Todos</option>
+          <option value="low">Baja</option>
+          <option value="medium">Media</option>
+          <option value="high">Alta</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Asignado a</span>
+        <select id="assignee-filter" name="assignee">
+          <option value="">Todos</option>
+        </select>
+      </label>
+    </div>
+    <div class="pagination-controls">
+      <button id="prev-page" type="button" disabled>Anterior</button>
+      <span class="page-info">Página <span id="page-num">1</span> de <span id="page-total">1</span></span>
+      <button id="next-page" type="button" disabled>Siguiente</button>
+    </div>
+  </div>
+
+  <main class="layout">
+    <section class="panel list-panel" aria-labelledby="list-title">
+      <div class="panel-head">
+        <h2 id="list-title">Tickets</h2>
+        <span id="ticket-count" class="count" aria-label="Cantidad de tickets visibles">0</span>
+      </div>
+
+      <div id="stats" class="stats" aria-label="Resumen de tickets por estado"></div>
+
+      <div id="filters" class="filters" role="group" aria-label="Filtrar por estado"></div>
+
+      <p id="list-status" class="status-line" role="status" aria-live="polite"></p>
+
+      <ul id="ticket-list" class="ticket-list" aria-label="Lista de tickets"></ul>
+
+      <div id="empty-state" class="empty" hidden>
+        <p>No hay tickets para este filtro.</p>
+        <button id="empty-new" class="btn btn-ghost" type="button">Crear el primero</button>
+      </div>
+    </section>
+
+    <section class="panel detail-panel" aria-label="Detalle del ticket">
+      <div id="detail-content" class="detail-content">
+        <div class="detail-placeholder">
+          <div class="placeholder-icon" aria-hidden="true">☰</div>
+          <h2>Elegí un ticket</h2>
+          <p>Seleccioná un ticket de la lista para ver el detalle, cambiar el estado, asignarlo o pedir una sugerencia.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="ticket-dialog" class="dialog" aria-labelledby="dialog-title">
+    <form id="ticket-form" novalidate>
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow">Nuevo ticket</p>
+          <h2 id="dialog-title">Registrar una consulta</h2>
+        </div>
+        <button id="close-dialog" class="icon-btn" type="button" aria-label="Cerrar">×</button>
+      </div>
+
+      <label class="field">
+        <span>Título</span>
+        <input id="title" name="title" type="text" maxlength="120" minlength="3" required placeholder="Ej.: No puedo restablecer mi contraseña">
+      </label>
+
+      <label class="field">
+        <span>Descripción</span>
+        <textarea id="description" name="description" rows="5" maxlength="2000" minlength="5" required placeholder="Contá qué pasó, qué esperabas y qué probaste."></textarea>
+      </label>
+
+      <div class="field-row">
+        <label class="field">
+          <span>Prioridad</span>
+          <select id="priority" name="priority">
+            <option value="low">Baja</option>
+            <option value="medium" selected>Media</option>
+            <option value="high">Alta</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Asignar a</span>
+          <select id="assignee" name="assigneeId">
+            <option value="">Sin asignar</option>
+          </select>
+        </label>
+      </div>
+
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+
+      <div class="dialog-actions">
+        <button id="cancel-dialog" class="btn btn-ghost" type="button">Cancelar</button>
+        <button id="submit-ticket" class="btn btn-primary" type="submit">Crear ticket</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <noscript>Esta aplicación necesita JavaScript para funcionar.</noscript>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
